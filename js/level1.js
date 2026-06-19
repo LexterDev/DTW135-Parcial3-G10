@@ -21,10 +21,10 @@ function initLevel1() {
     }
 
     /* Obtener la posición actual del usuario */
-    navigator.geolocation.getPosition(
+    navigator.geolocation.getCurrentPosition(
       (pos) => {
         /* Guardar coordenadas en el estado global y actualizar UI */
-        gameState.geo.lat = pos.coord.latitude
+        gameState.geo.lat = pos.coords.latitude
         gameState.geo.lng = pos.coords.longitude
         latEl.textContent = pos.coords.latitude.toFixed(6) + '°'
         latEl.className = 'data-val'
@@ -55,7 +55,7 @@ function initLevel1() {
 
   /* Evento para avanzar de nivel */
   btnNext.addEventListener('click', () => {
-    if (gameState.levels[0].completed) { Audio.play('locked'); return; }
+    if (!gameState.levels[0].completed) { Audio.play('locked'); return; }
     Audio.play('click')
     goToNextLevel(1)
   })
