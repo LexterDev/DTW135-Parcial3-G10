@@ -1,5 +1,9 @@
 /* ── ESTILOS BASE ── */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Press Start 2P', monospace;
@@ -11,7 +15,9 @@ body {
 /* ── INTERFAZ (HUD) ── */
 .nes-hud {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   background: #000;
   border-bottom: 3px solid #E52521;
   display: flex;
@@ -21,11 +27,30 @@ body {
   z-index: 200;
   font-size: 8px;
 }
-.hud-col { display: flex; flex-direction: column; }
-.hud-center { text-align: center; align-items: center; gap: 2px; }
-.hud-right { text-align: right; align-items: flex-end; }
-.hud-label { color: #fff; }
-.hud-value { color: #FBD000; }
+
+.hud-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-center {
+  text-align: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.hud-right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.hud-label {
+  color: #fff;
+}
+
+.hud-value {
+  color: #FBD000;
+}
 
 /* ── ÍCONOS SVG (estilo NES) ── */
 .icon {
@@ -35,13 +60,41 @@ body {
   width: 9px;
   height: 9px;
 }
-.icon-lg { width: 28px; height: 20px; }
-.icon-heart { width: 8px; height: 6px; }
-.icon-camera { width: 10px; height: 7px; }
-.icon-thermometer { width: 5px; height: 12px; }
-.icon-arrow { width: 5px; height: 10px; }
-.icon-star { width: 8px; height: 8px; }
-.victory-stars .icon-star { width: 14px; height: 14px; }
+
+.icon-lg {
+  width: 28px;
+  height: 20px;
+}
+
+.icon-heart {
+  width: 8px;
+  height: 6px;
+}
+
+.icon-camera {
+  width: 10px;
+  height: 7px;
+}
+
+.icon-thermometer {
+  width: 5px;
+  height: 12px;
+}
+
+.icon-arrow {
+  width: 5px;
+  height: 10px;
+}
+
+.icon-star {
+  width: 8px;
+  height: 8px;
+}
+
+.victory-stars .icon-star {
+  width: 14px;
+  height: 14px;
+}
 
 /* ── PANTALLA DE NIVEL ── */
 .level-screen {
@@ -51,14 +104,13 @@ body {
   position: relative;
   overflow-x: hidden;
 }
+
 .level-screen::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg, transparent, transparent 3px,
-    rgba(0,0,0,0.13) 3px, rgba(0,0,0,0.13) 4px
-  );
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px,
+      rgba(0, 0, 0, 0.13) 3px, rgba(0, 0, 0, 0.13) 4px);
   pointer-events: none;
   z-index: 10;
 }
@@ -93,31 +145,56 @@ body {
   margin-bottom: 14px;
   position: relative;
 }
+
 .nes-dialog .portrait {
   position: absolute;
-  top: -3px; left: -3px;
-  width: 60px; height: 60px;
+  top: -3px;
+  left: -3px;
+  width: 60px;
+  height: 60px;
   background: #E52521;
   border: 3px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .hero-sprite {
   width: 46px;
   height: 52px;
   shape-rendering: crispEdges;
   animation: idleBob 0.6s steps(1) infinite;
 }
+
 @keyframes idleBob {
-  0%, 49%   { transform: translateY(0); }
-  50%, 100% { transform: translateY(-4px); }
+
+  0%,
+  49% {
+    transform: translateY(0);
+  }
+
+  50%,
+  100% {
+    transform: translateY(-4px);
+  }
 }
+
 .cursor-blink {
   display: inline-block;
   animation: blink .8s infinite;
 }
-@keyframes blink { 0%,100%{ opacity:1 } 50%{ opacity:0 } }
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0
+  }
+}
 
 /* ── BOTONES ── */
 .nes-btn {
@@ -131,7 +208,10 @@ body {
   margin-bottom: 8px;
   transition: transform .05s;
 }
-.nes-btn:active { transform: translate(2px,2px); }
+
+.nes-btn:active {
+  transform: translate(2px, 2px);
+}
 
 .nes-btn-primary {
   background: #E52521;
@@ -140,11 +220,13 @@ body {
   border-right: 4px solid #8B0000;
   text-shadow: 1px 1px #000;
 }
+
 .nes-btn-secondary {
   background: #000;
   color: #FBD000;
   border: 3px solid #FBD000;
 }
+
 .nes-btn-success {
   background: #43B047;
   color: #fff;
@@ -152,6 +234,7 @@ body {
   border-right: 4px solid #1a5c1a;
   text-shadow: 1px 1px #000;
 }
+
 .nes-btn-disabled {
   background: #2c2c2c;
   color: #555;
@@ -173,8 +256,16 @@ body {
   border: 3px solid;
   background: #000;
 }
-.nes-alert-error  { border-color: #E52521; color: #E52521; }
-.nes-alert-success { border-color: #43B047; color: #43B047; }
+
+.nes-alert-error {
+  border-color: #E52521;
+  color: #E52521;
+}
+
+.nes-alert-success {
+  border-color: #43B047;
+  color: #43B047;
+}
 
 /* ── DATOS Y VALORES ── */
 .data-row {
@@ -183,12 +274,18 @@ body {
   text-shadow: 1px 1px #000;
   line-height: 2.6;
   margin-bottom: 14px;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   padding: 8px 12px;
   border-left: 4px solid #FBD000;
 }
-.data-pending { color: #aaa; }
-.data-val     { color: #FBD000; }
+
+.data-pending {
+  color: #aaa;
+}
+
+.data-val {
+  color: #FBD000;
+}
 
 /* ── LIENZO (CANVAS) ── */
 .nes-canvas {
@@ -214,7 +311,12 @@ body {
   gap: 6px;
   margin-bottom: 10px;
 }
-.cam-label { font-size: 8px; color: #555; }
+
+.cam-label {
+  font-size: 8px;
+  color: #555;
+}
+
 .nes-video {
   width: 100%;
   max-height: 200px;
@@ -230,13 +332,19 @@ body {
   margin-bottom: 12px;
   flex-wrap: wrap;
 }
+
 .photo-thumb {
   width: 160px;
   height: 120px;
   border: 2px solid #43B047;
   overflow: hidden;
 }
-.photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 /* ── BARRA DE PROGRESO ── */
 .progress-label {
@@ -245,21 +353,24 @@ body {
   text-shadow: 1px 1px #000;
   margin-bottom: 6px;
 }
+
 .nes-progress-wrap {
   background: #000;
   border: 3px solid #fff;
   padding: 3px;
   margin-bottom: 8px;
 }
+
 .nes-progress-fill {
   height: 14px;
   background: #E52521;
   border-right: 3px solid #FBD000;
   transition: width .2s;
 }
+
 .worker-hint {
   font-size: 7px;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   text-shadow: 1px 1px #000;
   margin-bottom: 10px;
   line-height: 2;
@@ -273,6 +384,7 @@ body {
   padding: 12px 14px;
   margin-bottom: 14px;
 }
+
 .stat-card-title {
   font-size: 9px;
   color: #FBD000;
@@ -280,6 +392,7 @@ body {
   padding-bottom: 6px;
   margin-bottom: 8px;
 }
+
 .stat-row {
   display: flex;
   justify-content: space-between;
@@ -288,7 +401,10 @@ body {
   padding: 4px 0;
   border-bottom: 1px solid #1a1a1a;
 }
-.stat-val { color: #5C94FC; }
+
+.stat-val {
+  color: #5C94FC;
+}
 
 /* ── MEJORES 10 ── */
 .top10-cols {
@@ -296,7 +412,11 @@ body {
   gap: 12px;
   margin-bottom: 10px;
 }
-.top10-cols > div { flex: 1; }
+
+.top10-cols>div {
+  flex: 1;
+}
+
 .top-list-title {
   font-size: 8px;
   color: #FBD000;
@@ -304,6 +424,7 @@ body {
   border-bottom: 1px solid #333;
   padding-bottom: 3px;
 }
+
 .top-item {
   display: flex;
   justify-content: space-between;
@@ -311,26 +432,34 @@ body {
   color: #fff;
   padding: 2px 0;
 }
-.top-item .rank { color: #FBD000; }
-.top-item .val  { color: #5C94FC; }
+
+.top-item .rank {
+  color: #FBD000;
+}
+
+.top-item .val {
+  color: #5C94FC;
+}
 
 /* ── PANTALLA: NIVEL COMPLETADO ── */
 .sc-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0, 0, 0, 0.92);
   z-index: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity .4s;
 }
+
 .sc-box {
   text-align: center;
   border: 4px solid #FBD000;
   padding: 32px 40px;
   background: #000;
 }
+
 .sc-main {
   font-size: 24px;
   color: #FBD000;
@@ -338,8 +467,18 @@ body {
   line-height: 1.6;
   margin-bottom: 16px;
 }
-.sc-world { font-size: 8px; color: #fff; margin-bottom: 10px; }
-.sc-pts   { font-size: 12px; color: #FBD000; margin-bottom: 20px; }
+
+.sc-world {
+  font-size: 8px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.sc-pts {
+  font-size: 12px;
+  color: #FBD000;
+  margin-bottom: 20px;
+}
 
 /* ── PANTALLA DE VICTORIA ── */
 .victory-overlay {
@@ -351,14 +490,31 @@ body {
   align-items: center;
   justify-content: center;
 }
-.victory-box { text-align: center; padding: 32px; }
+
+.victory-box {
+  text-align: center;
+  padding: 32px;
+}
+
 .victory-stars {
   font-size: 20px;
   color: #FBD000;
   margin-bottom: 16px;
   animation: starPulse 1s infinite;
 }
-@keyframes starPulse { 0%,100%{ opacity:1 } 50%{ opacity:.5 } }
+
+@keyframes starPulse {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: .5
+  }
+}
+
 .victory-main {
   font-size: 20px;
   color: #FBD000;
@@ -366,9 +522,25 @@ body {
   line-height: 1.6;
   margin-bottom: 14px;
 }
-.victory-sub  { font-size: 9px; color: #fff; margin-bottom: 20px; line-height: 2; }
-.victory-score-label { font-size: 8px; color: #aaa; margin-bottom: 6px; }
-.victory-score { font-size: 16px; color: #FBD000; margin-bottom: 24px; }
+
+.victory-sub {
+  font-size: 9px;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 2;
+}
+
+.victory-score-label {
+  font-size: 8px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+.victory-score {
+  font-size: 16px;
+  color: #FBD000;
+  margin-bottom: 24px;
+}
 
 /* ── NUBES FLOTANTES ── */
 .cloud-sprite {
@@ -376,19 +548,27 @@ body {
   shape-rendering: crispEdges;
   pointer-events: none;
 }
+
 .cloud-far {
   top: 60px;
   width: 90px;
   height: 34px;
   animation: cloudDrift 42s linear infinite;
 }
+
 .cloud-near {
   top: 115px;
   width: 150px;
   height: 56px;
   animation: cloudDrift 24s linear infinite;
 }
+
 @keyframes cloudDrift {
-  0%   { left: -20%; }
-  100% { left: 120%; }
+  0% {
+    left: -20%;
+  }
+
+  100% {
+    left: 120%;
+  }
 }
