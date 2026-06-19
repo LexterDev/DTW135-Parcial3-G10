@@ -12,6 +12,16 @@ function generateQuantumData250k() {
   return data
 }
 
+function renderTop10(containerId, values, unit) {
+  const el = document.getElementById(containerId)
+  el.innerHTML = values.map((v, i) =>
+    `<div class="top-item">
+       <span class="rank">#${i+1}</span>
+       <span class="val">${v}${unit}</span>
+     </div>`
+  ).join('')
+}
+
 function initLevel5() {
 
 }
