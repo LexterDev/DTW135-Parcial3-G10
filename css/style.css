@@ -27,6 +27,22 @@ body {
 .hud-label { color: #fff; }
 .hud-value { color: #FBD000; }
 
+/* ── ÍCONOS SVG (estilo NES) ── */
+.icon {
+  display: inline-block;
+  shape-rendering: crispEdges;
+  vertical-align: -0.15em;
+  width: 9px;
+  height: 9px;
+}
+.icon-lg { width: 28px; height: 20px; }
+.icon-heart { width: 8px; height: 6px; }
+.icon-camera { width: 10px; height: 7px; }
+.icon-thermometer { width: 5px; height: 12px; }
+.icon-arrow { width: 5px; height: 10px; }
+.icon-star { width: 8px; height: 8px; }
+.victory-stars .icon-star { width: 14px; height: 14px; }
+
 /* ── PANTALLA DE NIVEL ── */
 .level-screen {
   min-height: 100vh;
@@ -196,7 +212,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 28px;
   margin-bottom: 10px;
 }
 .cam-label { font-size: 8px; color: #555; }

@@ -28,8 +28,8 @@ function updateHUD() {
     document.getElementById('hud-score').textContent =
     String(gameState.totalScore).padStart(6, "0")
     document.getElementById('hud-world').textContent = WORLD_NAMES[n - 1]
-    document.getElementById('hud-coins').textContent =
-    `🪙×${String(gameState.coins).padStart(2, "0")}`
+    document.getElementById('hud-coins-count').textContent =
+    String(gameState.coins).padStart(2, "0")
 }
 
 function completeLevel(n) {
