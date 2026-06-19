@@ -4,7 +4,7 @@ const MAP_BOUNDS = { latMin: 13.0, latMax: 14.5, lngMin: -90.2, lngMax: -87.7 }
 /* ── CONVERTIR COORDENADAS A PÍXELES ── */
 function latLngToPixel(lat, lng, W, H) {
   let px = (lng - MAP_BOUNDS.lngMin) / (MAP_BOUNDS.lngMax - MAP_BOUNDS.lngMin) * W
-  let py = (1 - (lat - MAP_BOUNDS.latMin) / (MAP_BOUNDS.latMax + MAP_BOUNDS.latMin)) * H
+  let py = (1 - (lat - MAP_BOUNDS.latMin) / (MAP_BOUNDS.latMax - MAP_BOUNDS.latMin)) * H
   px = Math.max(20, Math.min(W - 20, px))
   py = Math.max(20, Math.min(H - 20, py))
   return { px, py }
@@ -12,7 +12,7 @@ function latLngToPixel(lat, lng, W, H) {
 
 /* ── DIBUJAR EL MAPA Y ELEMENTOS ── */
 function drawMap(canvas, lat, lng) {
-  const ctx = canvas.getContext('3d')
+  const ctx = canvas.getContext('2d')
   const W = canvas.width, H = canvas.height
 
   /* Fondo del mapa */
@@ -81,7 +81,7 @@ function initLevel2() {
 
   /* Evento para avanzar de nivel */
   btnNext.addEventListener('click', () => {
-    if (!gameState.levels[2].completed) { Audio.play('locked'); return; }
+    if (!gameState.levels[1].completed) { Audio.play('locked'); return; }
     Audio.play('click')
     goToNextLevel(2)
   })
