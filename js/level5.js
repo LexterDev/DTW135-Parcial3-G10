@@ -1,10 +1,10 @@
 function generateQuantumData250k() {
   const data = []
   for (let i = 0; i < 250000; i++) {
-    let temp = Math.random() * 35 + 10
+    let temp     = Math.random() * 35 + 10
     let humidity = Math.random() * 75 + 20
     let pressure = Math.random() * 70 + 980
-    if (Math.random() < 0.1) temp *= -1
+    if (Math.random() < 0.1) temp     *= -1
     if (Math.random() < 0.1) humidity *= -1
     if (Math.random() < 0.1) pressure *= -1
     data.push({ temp, humidity, pressure })
@@ -16,7 +16,7 @@ function renderTop10(containerId, values, unit) {
   const el = document.getElementById(containerId)
   el.innerHTML = values.map((v, i) =>
     `<div class="top-item">
-       <span class="rank">#${i + 1}</span>
+       <span class="rank">#${i+1}</span>
        <span class="val">${v}${unit}</span>
      </div>`
   ).join('')
@@ -24,12 +24,12 @@ function renderTop10(containerId, values, unit) {
 
 function initLevel5() {
   const btnProcess = document.getElementById('l5-btn-process')
-  const btnExport = document.getElementById('l5-btn-export')
-  const progWrap = document.getElementById('l5-progress-wrap')
-  const progFill = document.getElementById('l5-progress-fill')
-  const progLabel = document.getElementById('l5-progress-label')
-  const statCard = document.getElementById('l5-stat-card')
-  let lastResult = null
+  const btnExport  = document.getElementById('l5-btn-export')
+  const progWrap   = document.getElementById('l5-progress-wrap')
+  const progFill   = document.getElementById('l5-progress-fill')
+  const progLabel  = document.getElementById('l5-progress-label')
+  const statCard   = document.getElementById('l5-stat-card')
+  let lastResult   = null
 
   btnProcess.addEventListener('click', () => {
     Audio.play('click')
@@ -37,7 +37,7 @@ function initLevel5() {
     btnProcess.textContent = '⏳ GENERANDO...'
     progWrap.style.display = 'block'
 
-    const data = generateQuantumData250k()
+    const data   = generateQuantumData250k()
     btnProcess.textContent = '⏳ PROCESANDO...'
     const worker = new Worker('workers/worker5.js')
     worker.postMessage(data)
@@ -45,7 +45,7 @@ function initLevel5() {
     worker.onmessage = (e) => {
       if (e.data.type === 'progress') {
         const pct = e.data.value
-        progFill.style.width = pct + '%'
+        progFill.style.width  = pct + '%'
         progLabel.textContent = `FILTRANDO Y CALCULANDO... ${pct}%`
       } else if (e.data.type === 'result') {
         lastResult = e.data.stats
@@ -53,17 +53,17 @@ function initLevel5() {
 
         renderTop10('l5-top10-temp', s.top10Temp, '°C')
         renderTop10('l5-top10-pres', s.top10Pres, 'hPa')
-        document.getElementById('l5-avg-temp').textContent = s.avgTemp + '°C'
-        document.getElementById('l5-avg-hum').textContent = s.avgHum + '%'
-        document.getElementById('l5-avg-pres').textContent = s.avgPres + 'hPa'
-        document.getElementById('l5-valid').textContent = s.validCount.toLocaleString()
-        document.getElementById('l5-filtered').textContent = s.filteredCount.toLocaleString()
+        document.getElementById('l5-avg-temp').textContent  = s.avgTemp + '°C'
+        document.getElementById('l5-avg-hum').textContent   = s.avgHum  + '%'
+        document.getElementById('l5-avg-pres').textContent  = s.avgPres + 'hPa'
+        document.getElementById('l5-valid').textContent     = s.validCount.toLocaleString()
+        document.getElementById('l5-filtered').textContent  = s.filteredCount.toLocaleString()
 
         progWrap.style.display = 'none'
         statCard.style.display = 'block'
         btnExport.style.display = 'inline-block'
         btnProcess.textContent = '✔ PROCESADO'
-        btnProcess.className = 'nes-btn nes-btn-success'
+        btnProcess.className   = 'nes-btn nes-btn-success'
         showAlert('l5-alert', true, '✔ ANÁLISIS COMPLETADO — DESCARGA EL JSON PARA COMPLETAR LA MISIÓN')
         Audio.play('complete')
         completeLevel(5)
@@ -89,9 +89,9 @@ function initLevel5() {
     if (!lastResult) return
     const json = JSON.stringify(lastResult, null, 2)
     const blob = new Blob([json], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
+    const url  = URL.createObjectURL(blob)
+    const a    = document.createElement('a')
+    a.href     = url
     a.download = 'resultados-portal.json'
     document.body.appendChild(a)
     a.click()

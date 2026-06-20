@@ -1,8 +1,8 @@
-self.onmessage = function (e) {
+self.onmessage = function(e) {
   const data = e.data
-  const n = data.length
+  const n    = data.length
   let sumTemp = 0, maxTemp = -Infinity, minTemp = Infinity
-  let sumHum = 0, maxHum = -Infinity, minHum = Infinity
+  let sumHum  = 0, maxHum  = -Infinity, minHum  = Infinity
 
   for (let i = 0; i < n; i++) {
     const { temp, humidity } = data[i]

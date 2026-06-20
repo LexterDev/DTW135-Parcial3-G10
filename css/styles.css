@@ -1,9 +1,5 @@
-/* ── ESTILOS BASE ── */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ── RESET & BASE ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'Press Start 2P', monospace;
@@ -12,105 +8,83 @@ body {
   min-height: 100vh;
 }
 
-/* ── INTERFAZ (HUD) ── */
-.nes-hud {
+/* ── TOP BAR (HUD + navegación de niveles) ── */
+#top-bar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+}
+.nes-hud {
   background: #000;
   border-bottom: 3px solid #E52521;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 8px 16px;
-  z-index: 200;
   font-size: 8px;
 }
+.hud-col { display: flex; flex-direction: column; }
+.hud-center { text-align: center; align-items: center; gap: 2px; }
+.hud-right { text-align: right; align-items: flex-end; }
+.hud-label { color: #fff; }
+.hud-value { color: #FBD000; }
 
-.hud-col {
+/* ── LEVEL NAV ── */
+.level-nav {
   display: flex;
-  flex-direction: column;
-}
-
-.hud-center {
-  text-align: center;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
+  gap: 8px;
+  background: #000;
+  padding: 6px 16px;
 }
-
-.hud-right {
-  text-align: right;
-  align-items: flex-end;
+.level-nav-hint {
+  background: #000;
+  text-align: center;
+  font-size: 7px;
+  color: rgba(255,255,255,0.7);
+  text-shadow: 1px 1px #000;
+  margin: 0;
+  padding: 0 16px 6px;
+  border-bottom: 3px solid #E52521;
 }
-
-.hud-label {
-  color: #fff;
-}
-
-.hud-value {
-  color: #FBD000;
-}
-
-/* ── ÍCONOS SVG (estilo NES) ── */
-.icon {
-  display: inline-block;
-  shape-rendering: crispEdges;
-  vertical-align: -0.15em;
-  width: 9px;
-  height: 9px;
-}
-
-.icon-lg {
+.level-nav-btn {
   width: 28px;
-  height: 20px;
+  height: 28px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  background: #2c2c2c;
+  color: #aaa;
+  border: 2px solid #555;
+  cursor: pointer;
+}
+.level-nav-btn.is-current {
+  background: #E52521;
+  color: #fff;
+  border-color: #fff;
+}
+.level-nav-btn.is-completed {
+  background: #43B047;
+  color: #fff;
+  border-color: #fff;
 }
 
-.icon-heart {
-  width: 8px;
-  height: 6px;
-}
-
-.icon-camera {
-  width: 10px;
-  height: 7px;
-}
-
-.icon-thermometer {
-  width: 5px;
-  height: 12px;
-}
-
-.icon-arrow {
-  width: 5px;
-  height: 10px;
-}
-
-.icon-star {
-  width: 8px;
-  height: 8px;
-}
-
-.victory-stars .icon-star {
-  width: 14px;
-  height: 14px;
-}
-
-/* ── PANTALLA DE NIVEL ── */
+/* ── LEVEL SCREEN ── */
 .level-screen {
   min-height: 100vh;
   background: #5C94FC;
-  padding-top: 52px;
+  padding-top: 106px;
   position: relative;
   overflow-x: hidden;
 }
-
 .level-screen::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(0deg, transparent, transparent 3px,
-      rgba(0, 0, 0, 0.13) 3px, rgba(0, 0, 0, 0.13) 4px);
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(0,0,0,0.13) 3px, rgba(0,0,0,0.13) 4px
+  );
   pointer-events: none;
   z-index: 10;
 }
@@ -123,7 +97,7 @@ body {
   z-index: 20;
 }
 
-/* ── TÍTULO DEL NIVEL ── */
+/* ── LEVEL TITLE ── */
 .level-title {
   font-size: 14px;
   color: #fff;
@@ -133,7 +107,7 @@ body {
   margin-bottom: 16px;
 }
 
-/* ── CAJA DE DIÁLOGO ── */
+/* ── DIALOG BOX ── */
 .nes-dialog {
   background: #000;
   border: 4px solid #fff;
@@ -145,58 +119,33 @@ body {
   margin-bottom: 14px;
   position: relative;
 }
-
 .nes-dialog .portrait {
   position: absolute;
-  top: -3px;
-  left: -3px;
-  width: 60px;
-  height: 60px;
+  top: -3px; left: -3px;
+  width: 60px; height: 60px;
   background: #E52521;
   border: 3px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .hero-sprite {
   width: 46px;
   height: 52px;
   shape-rendering: crispEdges;
   animation: idleBob 0.6s steps(1) infinite;
 }
-
 @keyframes idleBob {
-
-  0%,
-  49% {
-    transform: translateY(0);
-  }
-
-  50%,
-  100% {
-    transform: translateY(-4px);
-  }
+  0%, 49%   { transform: translateY(0); }
+  50%, 100% { transform: translateY(-4px); }
 }
-
 .cursor-blink {
   display: inline-block;
   animation: blink .8s infinite;
 }
+@keyframes blink { 0%,100%{ opacity:1 } 50%{ opacity:0 } }
 
-@keyframes blink {
-
-  0%,
-  100% {
-    opacity: 1
-  }
-
-  50% {
-    opacity: 0
-  }
-}
-
-/* ── BOTONES ── */
+/* ── BUTTONS ── */
 .nes-btn {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
@@ -208,10 +157,7 @@ body {
   margin-bottom: 8px;
   transition: transform .05s;
 }
-
-.nes-btn:active {
-  transform: translate(2px, 2px);
-}
+.nes-btn:active { transform: translate(2px,2px); }
 
 .nes-btn-primary {
   background: #E52521;
@@ -220,13 +166,11 @@ body {
   border-right: 4px solid #8B0000;
   text-shadow: 1px 1px #000;
 }
-
 .nes-btn-secondary {
   background: #000;
   color: #FBD000;
   border: 3px solid #FBD000;
 }
-
 .nes-btn-success {
   background: #43B047;
   color: #fff;
@@ -234,7 +178,6 @@ body {
   border-right: 4px solid #1a5c1a;
   text-shadow: 1px 1px #000;
 }
-
 .nes-btn-disabled {
   background: #2c2c2c;
   color: #555;
@@ -247,7 +190,7 @@ body {
   margin-bottom: 6px;
 }
 
-/* ── ALERTAS ── */
+/* ── ALERTS ── */
 .nes-alert {
   font-size: 8px;
   padding: 8px 12px;
@@ -256,38 +199,24 @@ body {
   border: 3px solid;
   background: #000;
 }
+.nes-alert-error  { border-color: #E52521; color: #E52521; }
+.nes-alert-success { border-color: #43B047; color: #43B047; }
 
-.nes-alert-error {
-  border-color: #E52521;
-  color: #E52521;
-}
-
-.nes-alert-success {
-  border-color: #43B047;
-  color: #43B047;
-}
-
-/* ── DATOS Y VALORES ── */
+/* ── DATA DISPLAY ── */
 .data-row {
   font-size: 9px;
   color: #fff;
   text-shadow: 1px 1px #000;
   line-height: 2.6;
   margin-bottom: 14px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0,0,0,0.3);
   padding: 8px 12px;
   border-left: 4px solid #FBD000;
 }
+.data-pending { color: #aaa; }
+.data-val     { color: #FBD000; }
 
-.data-pending {
-  color: #aaa;
-}
-
-.data-val {
-  color: #FBD000;
-}
-
-/* ── LIENZO (CANVAS) ── */
+/* ── CANVAS ── */
 .nes-canvas {
   width: 100%;
   height: 200px;
@@ -298,7 +227,7 @@ body {
   image-rendering: pixelated;
 }
 
-/* ── CÁMARA ── */
+/* ── CAMERA ── */
 .nes-cam-placeholder {
   background: #000;
   border: 3px solid #fff;
@@ -309,14 +238,10 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
+  font-size: 28px;
   margin-bottom: 10px;
 }
-
-.cam-label {
-  font-size: 8px;
-  color: #555;
-}
-
+.cam-label { font-size: 8px; color: #555; }
 .nes-video {
   width: 100%;
   max-height: 200px;
@@ -325,58 +250,49 @@ body {
   margin-bottom: 10px;
 }
 
-/* ── TIRA DE FOTOS ── */
+/* ── PHOTO STRIP ── */
 .photo-strip {
   display: flex;
   gap: 6px;
   margin-bottom: 12px;
   flex-wrap: wrap;
 }
-
 .photo-thumb {
   width: 160px;
   height: 120px;
   border: 2px solid #43B047;
   overflow: hidden;
 }
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-.photo-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ── BARRA DE PROGRESO ── */
+/* ── PROGRESS BAR ── */
 .progress-label {
   font-size: 8px;
   color: #fff;
   text-shadow: 1px 1px #000;
   margin-bottom: 6px;
 }
-
 .nes-progress-wrap {
   background: #000;
   border: 3px solid #fff;
   padding: 3px;
   margin-bottom: 8px;
 }
-
 .nes-progress-fill {
   height: 14px;
   background: #E52521;
   border-right: 3px solid #FBD000;
   transition: width .2s;
 }
-
 .worker-hint {
   font-size: 7px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255,255,255,0.7);
   text-shadow: 1px 1px #000;
   margin-bottom: 10px;
   line-height: 2;
 }
 
-/* ── TARJETA DE ESTADÍSTICAS ── */
+/* ── STAT CARD ── */
 .nes-stat-card {
   background: #000;
   border: 4px solid #fff;
@@ -384,7 +300,6 @@ body {
   padding: 12px 14px;
   margin-bottom: 14px;
 }
-
 .stat-card-title {
   font-size: 9px;
   color: #FBD000;
@@ -392,7 +307,6 @@ body {
   padding-bottom: 6px;
   margin-bottom: 8px;
 }
-
 .stat-row {
   display: flex;
   justify-content: space-between;
@@ -401,22 +315,15 @@ body {
   padding: 4px 0;
   border-bottom: 1px solid #1a1a1a;
 }
+.stat-val { color: #5C94FC; }
 
-.stat-val {
-  color: #5C94FC;
-}
-
-/* ── MEJORES 10 ── */
+/* ── TOP 10 ── */
 .top10-cols {
   display: flex;
   gap: 12px;
   margin-bottom: 10px;
 }
-
-.top10-cols>div {
-  flex: 1;
-}
-
+.top10-cols > div { flex: 1; }
 .top-list-title {
   font-size: 8px;
   color: #FBD000;
@@ -424,7 +331,6 @@ body {
   border-bottom: 1px solid #333;
   padding-bottom: 3px;
 }
-
 .top-item {
   display: flex;
   justify-content: space-between;
@@ -432,34 +338,26 @@ body {
   color: #fff;
   padding: 2px 0;
 }
+.top-item .rank { color: #FBD000; }
+.top-item .val  { color: #5C94FC; }
 
-.top-item .rank {
-  color: #FBD000;
-}
-
-.top-item .val {
-  color: #5C94FC;
-}
-
-/* ── PANTALLA: NIVEL COMPLETADO ── */
+/* ── STAGE CLEAR OVERLAY ── */
 .sc-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(0,0,0,0.92);
   z-index: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity .4s;
 }
-
 .sc-box {
   text-align: center;
   border: 4px solid #FBD000;
   padding: 32px 40px;
   background: #000;
 }
-
 .sc-main {
   font-size: 24px;
   color: #FBD000;
@@ -467,20 +365,10 @@ body {
   line-height: 1.6;
   margin-bottom: 16px;
 }
+.sc-world { font-size: 8px; color: #fff; margin-bottom: 10px; }
+.sc-pts   { font-size: 12px; color: #FBD000; margin-bottom: 20px; }
 
-.sc-world {
-  font-size: 8px;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.sc-pts {
-  font-size: 12px;
-  color: #FBD000;
-  margin-bottom: 20px;
-}
-
-/* ── PANTALLA DE VICTORIA ── */
+/* ── VICTORY OVERLAY ── */
 .victory-overlay {
   position: fixed;
   inset: 0;
@@ -490,31 +378,14 @@ body {
   align-items: center;
   justify-content: center;
 }
-
-.victory-box {
-  text-align: center;
-  padding: 32px;
-}
-
+.victory-box { text-align: center; padding: 32px; }
 .victory-stars {
   font-size: 20px;
   color: #FBD000;
   margin-bottom: 16px;
   animation: starPulse 1s infinite;
 }
-
-@keyframes starPulse {
-
-  0%,
-  100% {
-    opacity: 1
-  }
-
-  50% {
-    opacity: .5
-  }
-}
-
+@keyframes starPulse { 0%,100%{ opacity:1 } 50%{ opacity:.5 } }
 .victory-main {
   font-size: 20px;
   color: #FBD000;
@@ -522,53 +393,29 @@ body {
   line-height: 1.6;
   margin-bottom: 14px;
 }
+.victory-sub  { font-size: 9px; color: #fff; margin-bottom: 20px; line-height: 2; }
+.victory-score-label { font-size: 8px; color: #aaa; margin-bottom: 6px; }
+.victory-score { font-size: 16px; color: #FBD000; margin-bottom: 24px; }
 
-.victory-sub {
-  font-size: 9px;
-  color: #fff;
-  margin-bottom: 20px;
-  line-height: 2;
-}
-
-.victory-score-label {
-  font-size: 8px;
-  color: #aaa;
-  margin-bottom: 6px;
-}
-
-.victory-score {
-  font-size: 16px;
-  color: #FBD000;
-  margin-bottom: 24px;
-}
-
-/* ── NUBES FLOTANTES ── */
+/* ── FLOATING CLOUDS ── */
 .cloud-sprite {
   position: absolute;
   shape-rendering: crispEdges;
   pointer-events: none;
 }
-
 .cloud-far {
   top: 60px;
   width: 90px;
   height: 34px;
   animation: cloudDrift 42s linear infinite;
 }
-
 .cloud-near {
   top: 115px;
   width: 150px;
   height: 56px;
   animation: cloudDrift 24s linear infinite;
 }
-
 @keyframes cloudDrift {
-  0% {
-    left: -20%;
-  }
-
-  100% {
-    left: 120%;
-  }
+  0%   { left: -20%; }
+  100% { left: 120%; }
 }
